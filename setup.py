@@ -7,7 +7,7 @@ __version__ = "0.0.0"
 
 REPO_NAME = "Developing-Machine-Learning-Model-for-Early-Detection-of-Heart-Failure"
 AUTHOR_USER_NAME = "khalidasdsju"
-SRC_REPO = "HF Predictions"
+SRC_REPO = "HFPredictions"
 AUTHOR_EMAIL = "khalid.asds.ju@gmail.com"  # Fixed typo here
 
 setuptools.setup(
