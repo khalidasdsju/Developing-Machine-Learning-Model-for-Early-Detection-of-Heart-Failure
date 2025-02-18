@@ -169,6 +169,7 @@ def train_lightgbm(X_train, y_train, X_test, y_test):
     """Train a LightGBM model"""
     model = lgb.LGBMClassifier()
     model.fit(X_train, y_train)
+    
     y_pred = model.predict(X_test)
     return accuracy_score(y_test, y_pred)
 
