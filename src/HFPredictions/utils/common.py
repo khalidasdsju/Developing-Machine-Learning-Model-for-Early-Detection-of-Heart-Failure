@@ -1,7 +1,7 @@
 import os
 from box.exceptions import BoxValueError
 import yaml
-from HFPredictions import logger
+from cnnClassifier import logger
 import json
 import joblib
 from ensure import ensure_annotations
@@ -9,23 +9,6 @@ from box import ConfigBox
 from pathlib import Path
 from typing import Any
 import base64
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
-from imblearn.over_sampling import SMOTE
-import lightgbm as lgb
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import accuracy_score
-from pytorch_tabnet.tab_model import TabNetClassifier
-from sklearn.metrics import accuracy_score
-from scipy.stats import fisher_exact
-from statsmodels.stats.contingency_tables import mcnemar
-import dvc.api
-
 
 
 
@@ -127,76 +110,6 @@ def load_bin(path: Path) -> Any:
     data = joblib.load(path)
     logger.info(f"binary file loaded from: {path}")
     return data
-@ensure_annotations
-
-def create_numpy_array(shape: tuple, value=0):
-    """Create a numpy array of given shape filled with a specified value"""
-    return np.full(shape, value)
-
-def create_dataframe(data_dict: dict):
-    """Create a pandas DataFrame from a dictionary"""
-    return pd.DataFrame(data_dict)
-def create_line_plot(x, y, title="Line Plot", xlabel="X-axis", ylabel="Y-axis"):
-    """Create a simple line plot using matplotlib"""
-    plt.plot(x, y)
-    plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.show()
-    
-def create_heatmap(df, title="Heatmap"):
-    """Create a heatmap from a DataFrame"""
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(df.corr(), annot=True, cmap="coolwarm", fmt=".2f")
-    plt.title(title)
-    plt.show()
-
-def train_random_forest(X, y, test_size=0.2):
-    """Train a Random Forest model"""
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
-    model = RandomForestClassifier()
-    model.fit(X_train, y_train)
-    y_pred = model.predict(X_test)
-    return accuracy_score(y_test, y_pred)
-
-def apply_smote(X, y):
-    """Apply SMOTE to balance the dataset"""
-    smote = SMOTE()
-    X_res, y_res = smote.fit_resample(X, y)
-    return X_res, y_res
-
-def train_lightgbm(X_train, y_train, X_test, y_test):
-    """Train a LightGBM model"""
-    model = lgb.LGBMClassifier()
-    model.fit(X_train, y_train)
-    
-    y_pred = model.predict(X_test)
-    return accuracy_score(y_test, y_pred)
-
-
-def train_tabnet(X_train, y_train, X_test, y_test):
-    """Train a TabNet model"""
-    model = TabNetClassifier()
-    model.fit(X_train, y_train)
-    y_pred = model.predict(X_test)
-    return accuracy_score(y_test, y_pred)
-
-def apply_fishers_exact_test(table):
-    """Apply Fisher's Exact Test on a 2x2 contingency table"""
-    _, p_value = fisher_exact(table)
-    return p_value
-
-def perform_mcnemar_test(table):
-    """Perform McNemar's test"""
-    result = mcnemar(table)
-    return result.pvalue
-
-def save_model_to_dvc(model, model_name):
-    """Save model to DVC"""
-    model_path = f"models/{model_name}.pkl"
-    joblib.dump(model, model_path)
-    dvc.api.add(model_path)
-    return model_path
 
 @ensure_annotations
 def get_size(path: Path) -> str:
