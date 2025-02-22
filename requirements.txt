@@ -4,28 +4,12 @@ matplotlib
 seaborn
 joblib
 scikit-learn
-imblearn
+imbalanced-learn
 lightgbm
 pytorch-tabnet
 boruta
-scipy
 statsmodels
-dvc
-mlflow
-notebook
-python-box
-pyYAML
-tqdm
-types-PyYAML
-Flask
-Flask-Cors
-gdown
-torch
-torchvision
-torchaudio
-opencv-python
-xgboost
-
+scipy
 
 
 
