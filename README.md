@@ -1,4 +1,4 @@
-# Heart Failure Detection System
+# Developing-Machine-Learning-Model-for-Early-Detection-of-Heart-Failure
 
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3.8%2B-blue.svg" alt="Python 3.8+"/>
