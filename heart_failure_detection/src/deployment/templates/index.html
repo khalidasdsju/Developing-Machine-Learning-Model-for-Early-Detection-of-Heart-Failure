@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Failure Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            background-color: #f8f9fa;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .result-container {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .form-label {
+            font-weight: 500;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #343a40;
+        }
+        .header p {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Heart Failure Detection</h1>
+            <p>Enter patient information to predict heart failure risk</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8 form-container">
+                <form id="predictionForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="Age" class="form-label">Age</label>
+                            <input type="number" class="form-control" id="Age" name="Age" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="Sex" class="form-label">Sex</label>
+                            <select class="form-select" id="Sex" name="Sex" required>
+                                <option value="">Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="NYHA" class="form-label">NYHA Class</label>
+                            <select class="form-select" id="NYHA" name="NYHA" required>
+                                <option value="">Select</option>
+                                <option value="I">I</option>
+                                <option value="II">II</option>
+                                <option value="III">III</option>
+                                <option value="IV">IV</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="HTN" class="form-label">Hypertension</label>
+                            <select class="form-select" id="HTN" name="HTN" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="DM" class="form-label">Diabetes Mellitus</label>
+                            <select class="form-select" id="DM" name="DM" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="Smoker" class="form-label">Smoker</label>
+                            <select class="form-select" id="Smoker" name="Smoker" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="DL" class="form-label">Dyslipidemia</label>
+                            <select class="form-select" id="DL" name="DL" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="BA" class="form-label">Bronchial Asthma</label>
+                            <select class="form-select" id="BA" name="BA" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="CXR" class="form-label">Chest X-Ray Abnormality</label>
+                            <select class="form-select" id="CXR" name="CXR" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="RWMA" class="form-label">Regional Wall Motion Abnormality</label>
+                            <select class="form-select" id="RWMA" name="RWMA" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="MI" class="form-label">Myocardial Infarction</label>
+                            <select class="form-select" id="MI" name="MI" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="Chest_pain" class="form-label">Chest Pain</label>
+                            <select class="form-select" id="Chest_pain" name="Chest_pain" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="ECG" class="form-label">ECG</label>
+                            <select class="form-select" id="ECG" name="ECG" required>
+                                <option value="">Select</option>
+                                <option value="Normal">Normal</option>
+                                <option value="Abnormal">Abnormal</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="ACS" class="form-label">Acute Coronary Syndrome</label>
+                            <select class="form-select" id="ACS" name="ACS" required>
+                                <option value="">Select</option>
+                                <option value="STEMI">STEMI</option>
+                                <option value="NSTEMI">NSTEMI</option>
+                                <option value="UA">UA</option>
+                                <option value="None">None</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="Wall" class="form-label">Wall Affected</label>
+                            <select class="form-select" id="Wall" name="Wall" required>
+                                <option value="">Select</option>
+                                <option value="Anterior">Anterior</option>
+                                <option value="Inferior">Inferior</option>
+                                <option value="Lateral">Lateral</option>
+                                <option value="Posterior">Posterior</option>
+                                <option value="None">None</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="MR" class="form-label">Mitral Regurgitation</label>
+                            <select class="form-select" id="MR" name="MR" required>
+                                <option value="">Select</option>
+                                <option value="Mild">Mild</option>
+                                <option value="Moderate">Moderate</option>
+                                <option value="Severe">Severe</option>
+                                <option value="None">None</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="Thrombolysis" class="form-label">Thrombolysis</label>
+                            <select class="form-select" id="Thrombolysis" name="Thrombolysis" required>
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="EF" class="form-label">Ejection Fraction (%)</label>
+                            <input type="number" class="form-control" id="EF" name="EF" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="HR" class="form-label">Heart Rate (bpm)</label>
+                            <input type="number" class="form-control" id="HR" name="HR" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="SBP" class="form-label">Systolic Blood Pressure (mmHg)</label>
+                            <input type="number" class="form-control" id="SBP" name="SBP" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="DBP" class="form-label">Diastolic Blood Pressure (mmHg)</label>
+                            <input type="number" class="form-control" id="DBP" name="DBP" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="Creatinine" class="form-label">Creatinine (mg/dL)</label>
+                            <input type="number" step="0.01" class="form-control" id="Creatinine" name="Creatinine" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="Sodium" class="form-label">Sodium (mEq/L)</label>
+                            <input type="number" class="form-control" id="Sodium" name="Sodium" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="Potassium" class="form-label">Potassium (mEq/L)</label>
+                            <input type="number" step="0.1" class="form-control" id="Potassium" name="Potassium" required>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Predict</button>
+                    </div>
+                </form>
+                
+                <div id="resultContainer" class="result-container">
+                    <h4 id="resultTitle"></h4>
+                    <p id="resultMessage"></p>
+                    <p id="resultProbability"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const jsonData = {};
+            
+            // Convert form data to JSON
+            for (const [key, value] of formData.entries()) {
+                jsonData[key] = value;
+            }
+            
+            // Convert numerical values
+            const numericFields = ['Age', 'EF', 'HR', 'SBP', 'DBP', 'Creatinine', 'Sodium', 'Potassium'];
+            numericFields.forEach(field => {
+                if (jsonData[field]) {
+                    jsonData[field] = parseFloat(jsonData[field]);
+                }
+            });
+            
+            // Make API request
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultContainer = document.getElementById('resultContainer');
+                const resultTitle = document.getElementById('resultTitle');
+                const resultMessage = document.getElementById('resultMessage');
+                const resultProbability = document.getElementById('resultProbability');
+                
+                // Display result
+                if (data.prediction === 1) {
+                    resultContainer.className = 'result-container danger';
+                    resultTitle.textContent = 'Heart Failure Detected';
+                    resultMessage.textContent = 'The model predicts that the patient has a high risk of heart failure.';
+                } else {
+                    resultContainer.className = 'result-container success';
+                    resultTitle.textContent = 'No Heart Failure Detected';
+                    resultMessage.textContent = 'The model predicts that the patient has a low risk of heart failure.';
+                }
+                
+                // Display probability if available
+                if (data.probability !== null) {
+                    resultProbability.textContent = `Probability: ${(data.probability * 100).toFixed(2)}%`;
+                } else {
+                    resultProbability.textContent = '';
+                }
+                
+                resultContainer.style.display = 'block';
+                
+                // Scroll to result
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while making the prediction. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>
