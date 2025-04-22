@@ -224,11 +224,11 @@ The best model (Random Forest) achieves the following performance metrics:
 
 | Metric | Value |
 |--------|-------|
-| Accuracy | 0.90 |
-| ROC AUC | 0.92 |
-| Precision | 0.89 |
-| Recall | 0.91 |
-| F1 Score | 0.90 |
+| Accuracy | 0.8875 |
+| ROC AUC | 0.90 |
+| Precision | 0.889|
+| Recall | 0.88 |
+| F1 Score | 0.89 |
 
 ### Optimized Hyperparameters
 
