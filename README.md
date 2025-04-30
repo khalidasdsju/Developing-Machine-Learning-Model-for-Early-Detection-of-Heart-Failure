@@ -299,7 +299,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📬 Contact
 
-Project Maintainer - [Your Name](mailto:your.email@example.com)
+Project Maintainer - [MIR KHALID HASSAN]
 
 Project Link: [https://github.com/yourusername/heart-failure-detection](https://github.com/yourusername/heart-failure-detection)
 
